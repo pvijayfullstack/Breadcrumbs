@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  notes: MyString
+  status_id: 1
+  task_id: 1
+
+two:
+  name: MyString
+  notes: MyString
+  status_id: 1
+  task_id: 1

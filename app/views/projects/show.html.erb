@@ -1,0 +1,32 @@
+<h2>Project</h2>
+<h3><%=h @project.name %></h3>
+<%= link_to 'Add Task', new_task_for_project_path(:project_id => @project) %> |
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Projects', projects_path %> 
+
+<p>
+  <b>Parent:</b>
+  <%=h @project.parent %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @project.description %>
+</p>
+
+
+<table>
+  <th>Task ID</th>
+  <th>Status</th>
+  <th>Priority</th>
+  <th>Task</th>
+<% for task in @project.tasks %>
+  <tr>
+    <td><%= link_to task.id, task_path( task ) %></td>
+    <td><%= task.status %></td>
+    <td align='center'><%= task.priority %></td>
+    <td><%= task.name %></td>
+  </tr>
+<% end %>
+</table>
+

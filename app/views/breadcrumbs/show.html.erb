@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @breadcrumb.name %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @breadcrumb.notes %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @breadcrumb.status_id %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%=h @breadcrumb.task_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_breadcrumb_path(@breadcrumb) %> |
+<%= link_to 'Back', breadcrumbs_path %>

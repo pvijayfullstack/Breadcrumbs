@@ -1,0 +1,36 @@
+<h1>Editing task</h1>
+
+<% form_for(@task) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :size => 50 %>
+  </p>
+  <p>
+    <%= f.label :project_id %><br />
+    <%= f.select :project_id, @project_list %>
+  </p>
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </p>
+  <p>
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority, :size => 2 %>
+  </p>
+  <p>
+    <%= f.label :status_id %><br />
+    <%= f.select :status_id, @status_list %>
+  </p>
+  <p>
+    <%= f.label :parent %><br />
+    <%= f.select :parent, @task_list , {:include_blank => 'None'} %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @task %> |
+<%= link_to 'Back', tasks_path %>

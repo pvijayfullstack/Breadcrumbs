@@ -1,0 +1,26 @@
+<h1>Listing breadcrumbs</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Notes</th>
+    <th>Status</th>
+    <th>Task</th>
+  </tr>
+
+<% @breadcrumbs.each do |breadcrumb| %>
+  <tr>
+    <td><%=h breadcrumb.name %></td>
+    <td><%=h breadcrumb.notes %></td>
+    <td><%=h breadcrumb.status_id %></td>
+    <td><%=h breadcrumb.task_id %></td>
+    <td><%= link_to 'Show', breadcrumb %></td>
+    <td><%= link_to 'Edit', edit_breadcrumb_path(breadcrumb) %></td>
+    <td><%= link_to 'Destroy', breadcrumb, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New breadcrumb', new_breadcrumb_path %>
