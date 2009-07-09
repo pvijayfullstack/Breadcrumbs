@@ -9,23 +9,27 @@
 
   <p>
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :size => 50 %>
   </p>
   <p>
     <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :rows => 15, :cols => 60 %>
   </p>
   <p>
     <%= f.label :priority %><br />
-    <%= f.text_field :priority %>
+    <%= f.text_field :priority, :size => 2 %>
   </p>
   <p>
     <%= f.label :status_id %><br />
     <%= f.select :status_id, @status_list %>
   </p>
   <p>
+    <%= f.label :effort_id %><br />
+    <%= f.select :effort_id, @effort_list %>
+  </p>
+  <p>
     <%= f.label :parent %><br />
-    <%= f.text_field :parent %>
+    <%= f.select :parent, @task_list , {:include_blank => 'None'} %>
   </p>
 
   <%= f.hidden_field :project_id %>

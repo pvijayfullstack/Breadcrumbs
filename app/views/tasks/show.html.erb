@@ -1,9 +1,17 @@
-<h2>Task</h2>
-<h3><%=h @task.name %></h3>
+<h2><%=h @task.name %></h2>
+<h3>Task</h3>
+<%= link_to 'Add Breadcrumb', new_breadcrumb_for_task_path(@task) %> |
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Tasks', tasks_path %> |
+<%= link_to 'Projects', projects_path %>
+<% if @task.project %>
+  | <%= link_to 'Add another Task to Project: ' + @task.project.name, 
+        new_task_for_project_path( @task.project ) %> <br/>
+<% end %>
 
 <p>
   <b>Project:</b>
-  <%= link_to @task.project.name, project_path(@task.project) %><br/>
+  <%= link_to @task.project.key, project_path(@task.project) %><br/>
 </p>
 
 <p>
@@ -17,23 +25,39 @@
 </p>
 
 <p>
-  <b>Status:</b>
-  <%=h @task.status %>
+  <% form_tag :task, :method => 'put' do %> 
+    <b>Status:</b>
+    <%= select_tag :status_id, 
+          options_for_select(@status_list,{:selected=>@task.status_id}) , 
+          {:onchange => 'this.form.submit();'} %>
+  <% end %>
 </p>
 
+<% if @parent_task %>
 <p>
   <b>Parent:</b>
-  <%=h @task.parent %>
+  <%= link_to @parent_task.name, @parent_task %>
 </p>
-
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Tasks', tasks_path %> |
-<%= link_to 'Projects', projects_path %>
-<% if @task.project %>
-<br/><br/>
-  <%= link_to 'Add another Task to Project: ' + @task.project.name, 
-        new_task_for_project_path( @task.project ) %> <br/>
 <% end %>
+
+
+<h3>Open Breadcrumbs</h3>
+<% if @open_breadcrumbs.size > 0 %>
+  <%= render(:partial => 'breadcrumbs/breadcrumbs', :object => @open_breadcrumbs ) %>
+<% else %>
+  <p>No Open Breadcrumbs</p>
+<% end %>
+
+<br/><br/>
+<%= render(:partial => 'breadcrumbs/quick_add', :locals => { :task_id => @task.id } ) %>
+<br/><br/>
+
+<b>Closed Breadcrumbs</b>
+<% if @closed_breadcrumbs.size > 0 %>
+  <%= render(:partial => 'breadcrumbs/breadcrumbs', :object => @closed_breadcrumbs ) %>
+<% else %>
+  <p>No Closed Breadcrumbs</p>
+<% end %>
+
 
 

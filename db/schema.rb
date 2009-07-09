@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090624192156) do
+ActiveRecord::Schema.define(:version => 20090630151331) do
 
   create_table "breadcrumbs", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20090624192156) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "key"
   end
 
   create_table "tasks", :force => true do |t|
@@ -37,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20090624192156) do
     t.integer  "parent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "effort_id"
+    t.boolean  "working"
   end
 
 end

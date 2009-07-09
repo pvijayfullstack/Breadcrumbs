@@ -15,6 +15,22 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
 
+    if @project.parent
+      @parent = Project.find(@project.parent)
+    end
+
+    if params[:task_status_to_display]
+      status_list = params[:task_status_to_display].split(',') 
+      @tasks = Task.find( :all, :conditions => ['project_id = ? and status_id in (?)', @project.id, status_list] )
+      session[:task_status_to_display] = params[:task_status_to_display]
+    elsif session[:task_status_to_display]
+      status_list = session[:task_status_to_display].split(',') 
+      @tasks = Task.find( :all, :conditions => ['project_id = ? and status_id in (?)', @project.id, status_list] )
+    else
+      @tasks = @project.tasks
+    end
+
+    @sl = params[:task_status_to_display] 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @project }

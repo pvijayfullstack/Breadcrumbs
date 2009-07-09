@@ -1,31 +1,44 @@
-<h2>Project</h2>
-<h3><%=h @project.name %></h3>
+<h2><%=h @project.key %></h2>
+<h3>Project</h3>
+<p><%=h @project.name %></p>
 <%= link_to 'Add Task', new_task_for_project_path(:project_id => @project) %> |
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Projects', projects_path %> 
 
+<% if @parent %>
 <p>
-  <b>Parent:</b>
-  <%=h @project.parent %>
+  Sub Project of <%= link_to @parent.key, project_path(@parent) %>
 </p>
+<% else %>
+  <p>Root Project</p>
+<% end %>
 
 <p>
   <b>Description:</b>
   <%=h @project.description %>
 </p>
 
-
+  <%= link_to 'Add another Task to Project: ' + @project.name, 
+        new_task_for_project_path( @project ) %> <br/><br/>
+        
+<%= link_to "Open Items", project_path(@project, :task_status_to_display => Task.open_statuses) %>
+<%= link_to "Complete Items", project_path(@project, :task_status_to_display => Task.complete_statuses) %>
+<br/>
 <table>
   <th>Task ID</th>
   <th>Status</th>
   <th>Priority</th>
+  <th>Brdcmbs</th>
   <th>Task</th>
-<% for task in @project.tasks %>
+<% for task in @tasks %>
   <tr>
     <td><%= link_to task.id, task_path( task ) %></td>
     <td><%= task.status %></td>
     <td align='center'><%= task.priority %></td>
-    <td><%= task.name %></td>
+    <td align='center'>(<%=h task.open_breadcrumb_count.to_s %>/<%=h task.total_breadcrumb_count.to_s %>)</td>
+    <td><%=h task.name %></td>
+    <td><%= link_to "Edit", edit_task_path(task) %></td>
+    <td><%= link_to "Mark Done", mark_task_done_path(task, :task_status_to_display => @sl ) %></td>
   </tr>
 <% end %>
 </table>

@@ -10,12 +10,12 @@
 
 <p>
   <b>Status:</b>
-  <%=h @breadcrumb.status_id %>
+  <%=h @breadcrumb.status %>
 </p>
 
 <p>
   <b>Task:</b>
-  <%=h @breadcrumb.task_id %>
+  <%= link_to @breadcrumb.task.name, @breadcrumb.task %>
 </p>
 
 

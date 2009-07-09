@@ -1,15 +1,19 @@
-<h1>New breadcrumb</h1>
+<% if @task %>
+  <h3>New Breadcrumb for Task <%=h @task.name %></h3>
+<% else %>
+  <h3>New breadcrumb</h3>
+<% end %>
 
 <% form_for(@breadcrumb) do |f| %>
   <%= f.error_messages %>
 
   <p>
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :size => 50 %>
   </p>
   <p>
     <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :rows => 15, :cols => 60 %>
   </p>
   <p>
     <%= f.label :status_id %><br />

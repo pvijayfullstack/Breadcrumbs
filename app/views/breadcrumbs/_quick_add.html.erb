@@ -1,0 +1,10 @@
+<div id='quick_add'>
+<% form_tag(quick_add_breadcrumb_path) do %>
+  <small>Breadcrumb Name:</small><br/>
+  <%= text_field_tag(:name, params[:name], :size => 60 ) %><br/>
+  <small>Description:</small><br/>
+  <%= text_area_tag(:notes, params[:notes], :rows => 3, :cols => 52) %><br/>
+  <%= hidden_field_tag(:task_id, value = task_id ) %>
+  <%= submit_tag "Submit" %>
+<% end %>
+</div>

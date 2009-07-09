@@ -13,7 +13,10 @@
   </p>
   <p>
     <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :rows => 15, :cols => 60 %>
+  </p>
+  <p>
+    Working? <%= f.select(:working, {"NO"=>"0", "YES"=>"1" }, {:selected=>"1"}) %>
   </p>
   <p>
     <%= f.label :priority %><br />
@@ -22,6 +25,10 @@
   <p>
     <%= f.label :status_id %><br />
     <%= f.select :status_id, @status_list %>
+  </p>
+  <p>
+    <%= f.label :effort_id %><br />
+    <%= f.select :effort_id, @effort_list %>
   </p>
   <p>
     <%= f.label :parent %><br />

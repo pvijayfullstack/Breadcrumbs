@@ -26,6 +26,11 @@ class BreadcrumbsController < ApplicationController
   def new
     @breadcrumb = Breadcrumb.new
 
+    if params[:task_id]
+      @task = Task.find(params[:task_id])
+      @breadcrumb.task = @task
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @breadcrumb }
@@ -35,6 +40,20 @@ class BreadcrumbsController < ApplicationController
   # GET /breadcrumbs/1/edit
   def edit
     @breadcrumb = Breadcrumb.find(params[:id])
+  end
+
+  def close 
+    @breadcrumb = Breadcrumb.find(params[:id])
+    @breadcrumb.status_id = Breadcrumb::CLOSED_STATUS
+    @breadcrumb.save!
+    redirect_to task_path(@breadcrumb.task)
+  end
+  
+  def reopen 
+    @breadcrumb = Breadcrumb.find(params[:id])
+    @breadcrumb.status_id = Breadcrumb::OPEN_STATUS
+    @breadcrumb.save!
+    redirect_to task_path(@breadcrumb.task)
   end
 
   # POST /breadcrumbs
@@ -52,6 +71,17 @@ class BreadcrumbsController < ApplicationController
         format.xml  { render :xml => @breadcrumb.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def quick_add
+    @task = Task.find(params[:task_id])
+    @breadcrumb = Breadcrumb.new
+    @breadcrumb.task = @task
+    @breadcrumb.name = params[:name]
+    @breadcrumb.notes = params[:notes]
+
+    @breadcrumb.save!
+    redirect_to task_path(@task)
   end
 
   # PUT /breadcrumbs/1

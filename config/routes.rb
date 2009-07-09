@@ -1,10 +1,29 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.new_breadcrumb_for_task 'new_breadcrumb_for_task/:task_id',
+    :controller => 'breadcrumbs',
+    :action => 'new',
+    :task_id => nil
+  map.close_breadcrumb 'close_breadcrumb/:id',
+    :controller => 'breadcrumbs',
+    :action => 'close',
+    :id => nil
+  map.reopen_breadcrumb 'reopen_breadcrumb/:id',
+    :controller => 'breadcrumbs',
+    :action => 'reopen',
+    :id => nil
   map.new_task_for_project 'new_task_for_project/:project_id',
     :controller => 'tasks',
     :action => 'new',
     :project_id => nil
-    
+  map.mark_task_done 'mark_task_done/:id',
+    :controller => 'tasks',
+    :action => 'mark_done',
+    :id => nil
+  map.quick_add_breadcrumb 'quick_add_breadcrumb',
+    :controller => 'breadcrumbs',
+    :action => 'quick_add'
+
   map.resources :breadcrumbs
   map.resources :tasks
   map.resources :projects

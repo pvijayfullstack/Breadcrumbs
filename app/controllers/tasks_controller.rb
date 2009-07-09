@@ -14,6 +14,12 @@ class TasksController < ApplicationController
   # GET /tasks/1.xml
   def show
     @task = Task.find(params[:id])
+    @open_breadcrumbs = @task.breadcrumbs.find_open
+    @closed_breadcrumbs = @task.breadcrumbs.find_closed
+    @status_list = Task.build_status_list
+    if @task.parent
+      @parent_task = Task.find(@task.parent)
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,9 +32,11 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @status_list = Task.build_status_list
+    @effort_list = Task.build_effort_list
 
     if params[:project_id]
       @project = Project.find(params[:project_id])
+      @task_list = Task.find_for_project( @project ).collect {|t| [ t.name, t.id ] }
       @task.project = @project 
     end
 
@@ -44,6 +52,16 @@ class TasksController < ApplicationController
     @status_list = Task.build_status_list
     @project_list = Project.find(:all).collect {|p| [ p.name, p.id ] }
     @task_list = Task.find_others_for_project( @task ).collect {|t| [ t.name, t.id ] }
+    @effort_list = Task.build_effort_list
+  end
+
+  def mark_done 
+    @task = Task.find(params[:id])
+    @task.status_id = Task::DONE_STATUS
+    @task.working = false
+    @task.save!
+
+    redirect_to @task.project(:task_status_to_display => params[:task_status_to_display])
   end
 
   # POST /tasks
@@ -68,9 +86,12 @@ class TasksController < ApplicationController
   # PUT /tasks/1.xml
   def update
     @task = Task.find(params[:id])
-
+    logger.debug( "updating task #{@task.name}")
     respond_to do |format|
-      if @task.update_attributes(params[:task])
+      if params[:status_id]
+        @task.update_attributes(:status_id => params[:status_id])
+        format.html { redirect_to(@task) }
+      elsif @task.update_attributes(params[:task])
         flash[:notice] = 'Task was successfully updated.'
         format.html { redirect_to(@task) }
         format.xml  { head :ok }

@@ -1,0 +1,11 @@
+    <tr>
+      <td><b>>></b></td>
+      <td><%=h breadcrumb.status %></td>
+      <td><%= link_to breadcrumb.name, breadcrumb %></td>
+      <td><%= link_to "Edit", edit_breadcrumb_path(breadcrumb) %></td>
+      <% if breadcrumb.open? %>
+        <td><%= link_to "Close", close_breadcrumb_path(breadcrumb) %></td>
+      <% else %>
+        <td><%= link_to "Re-Open", reopen_breadcrumb_path(breadcrumb) %></td>
+      <% end %>
+    </tr>
