@@ -1,0 +1,33 @@
+<h1>Listing items</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Project</th>
+    <th>Notes</th>
+    <th>Priority</th>
+    <th>Status</th>
+    <th>Parent</th>
+    <th>Effort</th>
+    <th>Type</th>
+  </tr>
+
+<% @items.each do |item| %>
+  <tr>
+    <td><%=h item.description %></td>
+    <td><%= link_to item.project.name, item.project %></td>
+    <td><%=h item.priority_id %></td>
+    <td><%=h item.status_id %></td>
+    <td><%=h item.parent_id %></td>
+    <td><%=h item.effort_id %></td>
+    <td><%=h item.type %></td>
+    <td><%= link_to 'Show', item_path(item) %></td>
+    <td><%= link_to 'Edit', edit_item_path(item) %></td>
+    <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New item', new_item_path %>

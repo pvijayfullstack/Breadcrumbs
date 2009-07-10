@@ -18,9 +18,17 @@
   <%=h @project.description %>
 </p>
 
-  <%= link_to 'Add another Task to Project: ' + @project.name, 
+<p>
+<%= render( :partial => 'items/addnew', 
+      :locals => { :project_id => @project.id,
+                   :item_types => @item_types } ) %>
+</p>
+
+<%= link_to 'Add another Task to Project: ' + @project.name, 
         new_task_for_project_path( @project ) %> <br/><br/>
-        
+
+<%= render( :partial => 'items/items', :object => @project.items ) %> 
+
 <%= link_to "Open Items", project_path(@project, :task_status_to_display => Task.open_statuses) %>
 <%= link_to "Complete Items", project_path(@project, :task_status_to_display => Task.complete_statuses) %>
 <br/>

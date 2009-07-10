@@ -1,0 +1,47 @@
+<h1>Editing item</h1>
+
+<% form_for :item, :url => item_url, :html => {:method => :put} do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :type %><br />
+    <%= f.select :type, @type_list %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description, :size => 70 %>
+  </p>
+  <p>
+    <%= f.label :project_id %><br />
+    <%= f.select :project_id, @project_list %>
+  </p>
+
+  <p>
+    <%= f.label :parent_id %><br />
+    <%= f.select :parent_id, @item_list , {:include_blank => 'None'} %>
+  </p>
+
+  <table>
+    <tr>
+    <td align='center'>Status</td>
+    <td align='center'>Priority</td>
+    <td align='center'>Effort</td>
+    </tr>
+    <tr>
+      <td><%= f.select :status_id, @status_list %></td>
+      <td><%= f.select :priority_id, @priority_list %></td>
+      <td><%= f.select :effort_id, @effort_list %></td>
+    </tr>
+  </table>
+
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes, :rows => 8, :cols => 70 %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', item_path(@item) %> |
+<%= link_to 'Back', items_path %>

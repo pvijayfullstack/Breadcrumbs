@@ -9,13 +9,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090630151331) do
+ActiveRecord::Schema.define(:version => 20090709165909) do
 
   create_table "breadcrumbs", :force => true do |t|
     t.string   "name"
     t.text     "notes"
     t.integer  "status_id"
     t.integer  "task_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "description"
+    t.integer  "project_id"
+    t.text     "notes"
+    t.integer  "priority_id"
+    t.integer  "status_id"
+    t.integer  "parent_id"
+    t.integer  "effort_id"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -27,6 +40,13 @@ ActiveRecord::Schema.define(:version => 20090630151331) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "key"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tasks", :force => true do |t|

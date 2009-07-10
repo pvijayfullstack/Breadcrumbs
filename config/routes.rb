@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :items
+
 
   map.new_breadcrumb_for_task 'new_breadcrumb_for_task/:task_id',
     :controller => 'breadcrumbs',
@@ -22,6 +24,9 @@ ActionController::Routing::Routes.draw do |map|
     :id => nil
   map.quick_add_breadcrumb 'quick_add_breadcrumb',
     :controller => 'breadcrumbs',
+    :action => 'quick_add'
+  map.quick_add_item 'quick_add_item',
+    :controller => 'items',
     :action => 'quick_add'
 
   map.resources :breadcrumbs

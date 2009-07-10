@@ -1,0 +1,38 @@
+<p>
+  <b>Description:</b>
+  <%=h @item.description%>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%=h @item.project_id %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @item.notes %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%=h @item.priority_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @item.status %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @item.parent_id %>
+</p>
+
+<p>
+  <b>Effort:</b>
+  <%=h @item.effort_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

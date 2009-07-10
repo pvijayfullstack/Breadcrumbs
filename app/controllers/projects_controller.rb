@@ -14,6 +14,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1.xml
   def show
     @project = Project.find(params[:id])
+    @item = Item.new
+    @item_types = Item::TYPE_LIST
+    @priority_list = Item::PRIORITY_LIST
+    @effort_list = Item::EFFORT_LIST
+    @status_list = Item::STATUS_LIST
 
     if @project.parent
       @parent = Project.find(@project.parent)

@@ -1,0 +1,9 @@
+<tr>
+  <td><%= link_to item.id, item_path( item ) %></td>
+  <td align='center'><%= item.type %></td>
+  <td align='center'><%= item.status %></td>
+  <td align='center'><%= item.priority %></td>
+  <td align='center'><%= item.effort %></td>
+  <td><%=h item.description %></td>
+  <td>[<%= link_to 'Edit', edit_item_path(item) %>]</td>
+</tr>
