@@ -1,6 +1,7 @@
 class Item < ActiveRecord::Base
 
   belongs_to :project
+  has_many :breadcrumbs
 
   NEW_STATUS       = 0
   DONE_STATUS      = 1
@@ -81,7 +82,8 @@ class Item < ActiveRecord::Base
       ["Task", "Task"], 
       ["Idea", "Idea"], 
       ["Bug", "Bug"],
-      ["Feature", "Feature"]
+      ["Feature", "Feature"],
+      ["Question", "Question"]
     ]
 
   def initialize(params = nil)

@@ -1,5 +1,6 @@
 class Breadcrumb < ActiveRecord::Base
   belongs_to :task
+  belongs_to :item
 
   OPEN_STATUS = 0
   CLOSED_STATUS = 1

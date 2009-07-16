@@ -36,3 +36,68 @@
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
+
+
+<h2><%=h @item.description %></h2>
+<h3>Task</h3>
+<%= link_to 'Add Breadcrumb', new_breadcrumb_for_item_path(@item) %> |
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Items', items_path %> |
+<%= link_to 'Projects', projects_path %>
+<% if @item.project %>
+  | <%= link_to 'Add another Item to Project: ' + @item.project.name, 
+        new_item_for_project_path( @item.project ) %> <br/>
+<% end %>
+
+<p>
+  <b>Project:</b>
+  <%= link_to @item.project.key, project_path(@item.project) %><br/>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @item.notes %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%=h @item.priority %>
+</p>
+
+<p>
+  <% form_tag :item, :method => 'put' do %> 
+    <b>Status:</b>
+    <%= select_tag :status_id, 
+          options_for_select(@status_list,{:selected=>@item.status_id}) , 
+          {:onchange => 'this.form.submit();'} %>
+  <% end %>
+</p>
+
+<% if @parent_item %>
+<p>
+  <b>Parent:</b>
+  <%= link_to @parent_item.description, @parent_item %>
+</p>
+<% end %>
+
+<% if 1 == 0 %>
+
+<h3>Open Breadcrumbs</h3>
+<% if @open_breadcrumbs.size > 0 %>
+  <%= render(:partial => 'breadcrumbs/breadcrumbs', :object => @open_breadcrumbs ) %>
+<% else %>
+  <p>No Open Breadcrumbs</p>
+<% end %>
+
+<br/><br/>
+<%= render(:partial => 'breadcrumbs/quick_add', :locals => { :item_id => @item.id } ) %>
+<br/><br/>
+
+<b>Closed Breadcrumbs</b>
+<% if @closed_breadcrumbs.size > 0 %>
+  <%= render(:partial => 'breadcrumbs/breadcrumbs', :object => @closed_breadcrumbs ) %>
+<% else %>
+  <p>No Closed Breadcrumbs</p>
+<% end %>
+
+<% end %>
